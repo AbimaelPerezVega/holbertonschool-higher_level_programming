@@ -7,6 +7,3 @@ def uppercase(string):
             uppercase_char = char
         print(uppercase_char, end='')
     print()
-
-uppercase("best")
-uppercase("Best School 98 Battery street")
