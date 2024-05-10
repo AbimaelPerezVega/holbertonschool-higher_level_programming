@@ -7,7 +7,7 @@ sub_result = sub(a, b)
 mul_result = mul(a, b)
 div_result = div(a, b)
 if __name__ == "__main__":
-    print('add: {}'.format(add_result))
+    print('10 + 5 = {}'.format(add_result))
     print('sub: {}'.format(sub_result))
     print('mul: {}'.format(mul_result))
     print('div: {}'.format(div_result))
