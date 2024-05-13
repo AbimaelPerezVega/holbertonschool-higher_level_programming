@@ -14,7 +14,7 @@ def add_tuple(tuple_a=(), tuple_b=()):
             tuple_b = (tuple_b[0], 0)
     elif len(tuple_b) > 2:
         tuple_b = tuple_b[:2]
-v = ()
-for i in range(2):
-    v += (tuple_a[i] + tuple_b[i],)
-return v
+    v = ()
+    for i in range(2):
+        v += (tuple_a[i] + tuple_b[i],)
+    return v
