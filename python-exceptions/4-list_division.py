@@ -16,4 +16,6 @@ def list_division(my_list_1, my_list_2, list_length):
             result.append(quotient)
         except:
             result.append(0)
+        finally:
+            print("Iteration", i, "completed")
     return result
