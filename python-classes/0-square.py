@@ -1,4 +1,4 @@
-# 0-square.py
+#!/usr/bin/python3
 
 """
 This module defines a class Square.
