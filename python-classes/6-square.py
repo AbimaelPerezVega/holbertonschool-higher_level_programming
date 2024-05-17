@@ -14,7 +14,8 @@ class Square:
 
         Args:
             size (int): The size of the square, must be an integer >= 0.
-            position (tuple): The position of the square, must be a tuple of 2 positive integers.
+            position (tuple): The position of the square, must be a tuple of
+            2 positive integers.
         """
         self.size = size
         self.position = position
@@ -64,7 +65,8 @@ class Square:
         Set the position of the square.
 
         Args:
-            value (tuple): The new position of the square, must be a tuple of 2 positive integers.
+            value (tuple): The new position of the square, must be a tuple of
+            2 positive integers.
 
         Raises:
             TypeError: If value is not a tuple of 2 positive integers.
