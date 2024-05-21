@@ -35,7 +35,6 @@ Usage
 ::
 
     >>> print_square(0)
-    (no output)
 
 ::
 
