@@ -1,0 +1,46 @@
+==============================
+How to Use 5-text_indentation.py
+==============================
+
+This module defines a function ``text_indentation(text)`` to print a text with 2 new lines after each of these characters: ., ? and :.
+
+Usage
+=====
+
+``text_indentation(text)`` prints a text with 2 new lines after each of these characters: ., ? and :.
+
+::
+
+    >>> text_indentation = __import__('5-text_indentation').text_indentation
+
+::
+
+    >>> text_indentation("Hello. My name is John. What's your name?")
+    Hello.
+    <BLANKLINE>
+    My name is John. What's your name?
+    <BLANKLINE>
+
+::
+
+    >>> text_indentation("Why? Because: it's important.")
+    Why?
+    <BLANKLINE>
+    Because:
+    <BLANKLINE>
+    it's important.
+    <BLANKLINE>
+
+::
+
+    >>> text_indentation("No special characters here")
+    No special characters here
+
+If the input text is not a string, a TypeError exception is raised:
+
+::
+
+    >>> text_indentation(123)
+    Traceback (most recent call last):
+    ...
+    TypeError: text must be a string
