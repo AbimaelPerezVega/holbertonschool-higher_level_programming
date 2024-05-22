@@ -1,0 +1,51 @@
+===========================
+How to Use 7-base_geometry.py
+===========================
+
+This module defines a class `BaseGeometry`.
+
+Class: BaseGeometry
+====================
+
+Public Methods
+==============
+
+1. `area(self)`: 
+   - Raises an Exception with the message "area() is not implemented".
+
+::
+
+    >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+    >>> bg = BaseGeometry()
+    >>> try:
+    ...     bg.area()
+    ... except Exception as e:
+    ...     print("[{}] {}".format(e.__class__.__name__, e))
+    [Exception] area() is not implemented
+
+2. `integer_validator(self, name, value)`:
+   - Validates that `value` is a positive integer.
+   - Raises a `TypeError` if `value` is not an integer with the message "<name> must be an integer".
+   - Raises a `ValueError` if `value` is less than or equal to 0 with the message "<name> must be greater than 0".
+
+::
+
+    >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+    >>> bg = BaseGeometry()
+    >>> bg.integer_validator("my_int", 12)
+    >>> bg.integer_validator("width", 89)
+    >>> try:
+    ...     bg.integer_validator("name", "John")
+    ... except Exception as e:
+    ...     print("[{}] {}".format(e.__class__.__name__, e))
+    [TypeError] name must be an integer
+    >>> try:
+    ...     bg.integer_validator("age", 0)
+    ... except Exception as e:
+    ...     print("[{}] {}".format(e.__class__.__name__, e))
+    [ValueError] age must be greater than 0
+    >>> try:
+    ...     bg.integer_validator("distance", -4)
+    ... except Exception as e:
+    ...     print("[{}] {}".format(e.__class__.__name__, e))
+    [ValueError] distance must be greater than 0
