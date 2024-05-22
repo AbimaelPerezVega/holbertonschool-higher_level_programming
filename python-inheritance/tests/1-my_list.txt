@@ -1,0 +1,83 @@
+===========================
+How to Use 1-my_list.py
+===========================
+
+This module defines a class `MyList` that inherits from the built-in `list` class and adds a method to print the list in sorted order.
+
+Class Definition
+================
+
+The `MyList` class inherits from the built-in `list` class and includes an additional public instance method `print_sorted`.
+
+Usage
+=====
+
+The `print_sorted` method prints the list sorted in ascending order without modifying the original list.
+
+Class Definition
+----------------
+
+::
+    class MyList(list):
+        """
+        MyList inherits from list and includes a method to print the list sorted in ascending order.
+        """
+        def print_sorted(self):
+            """
+            Prints the list, but sorted in ascending order.
+            """
+            print(sorted(self))
+
+Example
+-------
+
+Create an instance of `MyList` and use the `append` method to add elements. The `print_sorted` method can then be called to print the sorted list.
+
+::
+
+    >>> MyList = __import__('1-my_list').MyList
+    >>> my_list = MyList()
+    >>> my_list.append(1)
+    >>> my_list.append(4)
+    >>> my_list.append(2)
+    >>> my_list.append(3)
+    >>> my_list.append(5)
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+    >>> my_list.print_sorted()
+    [1, 2, 3, 4, 5]
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+
+The `print_sorted` method prints the list in ascending order but does not modify the original list.
+
+::
+
+    >>> my_list = MyList()
+    >>> my_list.append(10)
+    >>> my_list.append(1)
+    >>> my_list.append(5)
+    >>> print(my_list)
+    [10, 1, 5]
+    >>> my_list.print_sorted()
+    [1, 5, 10]
+    >>> print(my_list)
+    [10, 1, 5]
+
+This demonstrates that the original list remains unchanged after calling `print_sorted`.
+
+Attributes and Methods
+======================
+
+- `print_sorted`: Prints the elements of the list in ascending order.
+
+Notes
+=====
+
+- All elements of the list are assumed to be of type `int`.
+- No external modules are imported in the implementation.
+
+Error Handling
+==============
+
+Since the implementation assumes all elements in the list are integers, no additional error handling for different data types is included. Ensure that only integers are appended to the `MyList` instance to avoid any unexpected behavior.
