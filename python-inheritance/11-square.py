@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
-This module defines a class
-Square that inherits from Rectangle.
+This module defines a class Square
+that inherits from Rectangle.
 """
 
 Rectangle = __import__('9-rectangle').Rectangle
@@ -24,11 +24,12 @@ class Square(Rectangle):
 
     def __str__(self):
         """
-        Return a string representation of the square.
+        Return a string representation
+        of the square.
 
         Returns:
             str: A string representing the
-            square in the format [Square] <size>/<size>.
+            square in the format [Square] <width>/<height>.
         """
         return "[Square] {}/{}".format(self._Rectangle__width,
                                        self._Rectangle__height)
