@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 class CountedIterator:
     def __init__(self, iterable):
         self.iterator = iter(iterable)
