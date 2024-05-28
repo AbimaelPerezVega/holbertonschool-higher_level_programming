@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#/usr/bin/python3^M
 """This script adds all arguments to a Python list and then saves
 them to a file as a JSON representation."""
 
