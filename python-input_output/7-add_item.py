@@ -1,8 +1,7 @@
 #!/usr/bin/python3
-"""Writing a scrip that adds all arguments to a py list and then save it
+"""Writing a script that adds all arguments to a Python list and then save it
 """
 import sys
-
 
 if __name__ == "__main__":
     save_to_json = __import__('5-save_to_json_file').save_to_json_file
