@@ -27,7 +27,7 @@ class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             self.send_response(404)
             self.send_header("Content-type", "text/plain")
             self.end_headers()
-            self.wfile.write(b"Not Found")
+            self.wfile.write(b"Error 404: Not Found")
 
 def run(server_class=http.server.HTTPServer, handler_class=SimpleHTTPRequestHandler):
     server_address = ('', 8000)
