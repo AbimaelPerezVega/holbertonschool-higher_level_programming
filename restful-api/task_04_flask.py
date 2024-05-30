@@ -7,6 +7,14 @@ users = {
     "john": {"username": "john", "name": "John", "age": 30, "city": "New York"}
 }
 
+def reorder_user_data(user_data):
+    return {
+        "username": user_data["username"],
+        "name": user_data["name"],
+        "age": user_data["age"],
+        "city": user_data["city"]
+    }
+
 @app.route('/')
 def home():
     return "Welcome to the Flask API!"
@@ -23,7 +31,7 @@ def status():
 def get_user(username):
     user = users.get(username)
     if user:
-        return jsonify(user)
+        return jsonify(reorder_user_data(user))
     else:
         return jsonify({"error": "User not found"}), 404
 
