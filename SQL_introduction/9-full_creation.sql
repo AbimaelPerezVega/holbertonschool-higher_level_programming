@@ -1,6 +1,4 @@
 -- Create table second_table and insert multiple rows
-USE hbtn_0c_0;
-
 CREATE TABLE IF NOT EXISTS second_table (
     id INT,
     name VARCHAR(256),
