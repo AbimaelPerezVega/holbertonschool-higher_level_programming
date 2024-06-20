@@ -3,10 +3,14 @@
 This script lists all states from the database hbtn_0e_0_usa.
 """
 
-import MySQLdb  # type: ignore
+import MySQLdb   # type: ignore
 import sys
 
-if __name__ == "__main__":
+
+def main():
+    """
+    Connects to a MySQL database and lists all states in ascending order by id.
+    """
     # Get MySQL credentials and database name from command line arguments
     mysql_username = sys.argv[1]
     mysql_password = sys.argv[2]
@@ -32,3 +36,7 @@ if __name__ == "__main__":
     # Close the cursor and database connection
     cursor.close()
     db.close()
+
+
+if __name__ == "__main__":
+    main()
