@@ -1,51 +1,44 @@
 #!/usr/bin/python3
-"""list states in database"""
-import MySQLdb
+"""
+This script lists all states from the database hbtn_0e_0_usa.
+"""
+
+import MySQLdb  # type: ignore
 import sys
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import Column, Integer, String
-
-Base = declarative_base()
+# from sqlalchemy import create_engine, Column, Integer, String # type: ignore
+# from sqlalchemy.orm import declarative_base, sessionmaker # type: ignore
 
 
-class State(Base):
-    """base of the sql"""
-    __tablename__ = 'states'
-    id = Column(Integer, primary_key=True, nullable=False)
-    name = Column(String(256), nullable=False)
+def main():
+    """
+    Connects to a MySQL database and lists all states in ascending order by id.
+    """
+    # Get MySQL credentials and database name from command line arguments
+    mysql_username = sys.argv[1]
+    mysql_password = sys.argv[2]
+    database_name = sys.argv[3]
 
+    # Connect to the MySQL database
+    db = MySQLdb.connect(host="localhost", port=3306, user=mysql_username,
+                         passwd=mysql_password, db=database_name)
 
-def list_states(username, password, dbname):
-    """connects to mysql database"""
-    # create a connection string
-    conn_str = f"mysql+mysqldb://{username}:{password}@localhost/{dbname}"
+    # Create a cursor object to interact with the database
+    cursor = db.cursor()
 
-    # create an engine
-    engine = create_engine(conn_str)
+    # Execute the SQL query to select all states
+    cursor.execute("SELECT * FROM states ORDER BY id ASC")
 
-    # create a configured "Session" class
-    Session = sessionmaker(bind=engine)
+    # Fetch all the rows from the executed query
+    rows = cursor.fetchall()
 
-    # create a Session
-    session = Session()
+    # Print each row
+    for row in rows:
+        print(row)
 
-    # query all states and order by id
-    states = session.query(State).order_by(State.id.asc()).all()
-
-    # print each state
-    for state in states:
-        print(f"({state.id}, '{state.name}')")
-
-    session.close()
+    # Close the cursor and database connection
+    cursor.close()
+    db.close()
 
 
 if __name__ == "__main__":
-    # get command line arg
-    username = sys.argv[1]
-    password = sys.argv[2]
-    dbname = sys.argv[3]
-
-    # call the function to list states
-    list_states(username, password, dbname)
+    main()
