@@ -1,46 +1,47 @@
 #!/usr/bin/python3
 """
-This script lists all states from the database hbtn_0e_0_usa.
-It takes 3 arguments: mysql username, mysql password, and database name.
+Module to list all states from the database hbtn_0e_0_usa
 """
 import MySQLdb #type: ignore
 import sys
+from sqlalchemy import create_engine, Column, Integer, String #type: ignore
+from sqlalchemy.orm import declarative_base, sessionmaker #type: ignore
+
+Base = declarative_base()
+
+
+class State(Base):
+    """Represents a state for a MySQL database."""
+    __tablename__ = 'states'
+    id = Column(Integer, primary_key=True, nullable=False)
+    name = Column(String(256), nullable=False)
+
+
+def list_states(username, password, dbname):
+    """
+    Connects to the database and prints all states sorted by id.
+    """
+    # Create a connection string and engine
+    conn_str = f"mysql+mysqldb://{username}:{password}@localhost:3306/{dbname}"
+    engine = create_engine(conn_str)
+
+    # Create a configured "Session" class and a session
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+    # Query all states and order by id
+    states = session.query(State).order_by(State.id.asc()).all()
+
+    # Print each state
+    for state in states:
+        print(f"({state.id}, '{state.name}')")
+
+    session.close()
+
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
-        print("Usage: {} username password database".format(sys.argv[0]))
-        sys.exit(1)
-
-    username = sys.argv[1]
-    password = sys.argv[2]
-    database = sys.argv[3]
-
-    try:
-        # Connect to MySQL database
-        db = MySQLdb.connect(
-            host="localhost",
-            user=username,
-            passwd=password,
-            db=database,
-            port=3306
-        )
-
-        # Create a cursor object using cursor() method
-        cursor = db.cursor()
-
-        # Execute SQL query
-        cursor.execute("SELECT * FROM states ORDER BY id ASC")
-
-        # Fetch all rows
-        results = cursor.fetchall()
-
-        # Print results as required
-        for row in results:
-            print(row)
-
-        # Disconnect from server
-        db.close()
-
-    except MySQLdb.Error as e:
-        print("MySQL Error {}: {}".format(e.args[0], e.args[1]))
-        sys.exit(1)
+    if len(sys.argv) == 4:
+        username = sys.argv[1]
+        password = sys.argv[2]
+        dbname = sys.argv[3]
+        list_states(username, password, dbname)
