@@ -1,47 +1,34 @@
 #!/usr/bin/python3
 """
-Module to list all states from the database hbtn_0e_0_usa
+This script lists all states from the database hbtn_0e_0_usa.
 """
-import MySQLdb #type: ignore
+
+import MySQLdb  # type: ignore
 import sys
-from sqlalchemy import create_engine, Column, Integer, String #type: ignore
-from sqlalchemy.orm import declarative_base, sessionmaker #type: ignore
-
-Base = declarative_base()
-
-
-class State(Base):
-    """Represents a state for a MySQL database."""
-    __tablename__ = 'states'
-    id = Column(Integer, primary_key=True, nullable=False)
-    name = Column(String(256), nullable=False)
-
-
-def list_states(username, password, dbname):
-    """
-    Connects to the database and prints all states sorted by id.
-    """
-    # Create a connection string and engine
-    conn_str = f"mysql+mysqldb://{username}:{password}@localhost:3306/{dbname}"
-    engine = create_engine(conn_str)
-
-    # Create a configured "Session" class and a session
-    Session = sessionmaker(bind=engine)
-    session = Session()
-
-    # Query all states and order by id
-    states = session.query(State).order_by(State.id.asc()).all()
-
-    # Print each state
-    for state in states:
-        print(f"({state.id}, '{state.name}')")
-
-    session.close()
-
 
 if __name__ == "__main__":
-    if len(sys.argv) == 4:
-        username = sys.argv[1]
-        password = sys.argv[2]
-        dbname = sys.argv[3]
-        list_states(username, password, dbname)
+    # Get MySQL credentials and database name from command line arguments
+    mysql_username = sys.argv[1]
+    mysql_password = sys.argv[2]
+    database_name = sys.argv[3]
+
+    # Connect to the MySQL database
+    db = MySQLdb.connect(host="localhost", port=3306, user=mysql_username,
+                         passwd=mysql_password, db=database_name)
+
+    # Create a cursor object to interact with the database
+    cursor = db.cursor()
+
+    # Execute the SQL query to select all states
+    cursor.execute("SELECT * FROM states ORDER BY id ASC")
+
+    # Fetch all the rows from the executed query
+    rows = cursor.fetchall()
+
+    # Print each row
+    for row in rows:
+        print(row)
+
+    # Close the cursor and database connection
+    cursor.close()
+    db.close()
