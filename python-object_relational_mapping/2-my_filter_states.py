@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
     # Construct the SQL query using format with user input
     query = (
-        "SELECT * FROM states WHERE name = '{}' ORDER BY id ASC"
+        "SELECT * FROM states WHERE BINARY name = '{}' ORDER BY id ASC"
         .format(state_name)
     )
 
