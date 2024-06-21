@@ -1,52 +1,43 @@
 #!/usr/bin/python3
-"""list all states that start with the letter N"""
-import MySQLdb
-import sys
-from sqlalchemy import create_engine, Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+"""
+This script lists all states from the database hbtn_0e_0_usa.
+"""
 
-Base = declarative_base()
-
-
-class State(Base):
-    """class represents the states of table"""
-    __tablename__ = 'states'
-    id = Column(Integer, primary_key=True, nullable=False)
-    name = Column(String(256), nullable=False)
-
-
-def states_with_n(username, password, dbname):
-    """connect mysql db and list states with n"""
-    # create a connection str
-    conn_str = f"mysql+mysqldb://{username}:{password}@localhost/{dbname}"
-
-    # create an engine
-    engine = create_engine(conn_str)
-
-    # create a config "session" class
-    Session = sessionmaker(bind=engine)
-
-    # Create a session
-    session = Session()
-
-    # query states with starting letter N and order by id
-    states = session.query(State).filter(
-        State.name.like('N%')).order_by(
-            State.id.asc()).all()
-
-    # print each state
-    for state in states:
-        print(f"({state.id}, '{state.name}')")
-
-    session.close()
-
+from sys import argv
+import MySQLdb  # type: ignore
 
 if __name__ == "__main__":
-    # get the command line arguments
-    username = sys.argv[1]
-    password = sys.argv[2]
-    dbname = sys.argv[3]
+    try:
+        # Connect to the MySQL database
+        db = MySQLdb.connect(
+            host="localhost",
+            port=3306,
+            user=argv[1],
+            passwd=argv[2],
+            db=argv[3],
+            charset="utf8",
+        )
 
-    # call the func to list states with the letter N
-    states_with_n(username, password, dbname)
+        # Create a cursor object to interact with the database
+        cur = db.cursor()
+
+        # Execute the SQL query to select all states
+        # ordered by id in ascending order
+        cur.execute("SELECT * FROM states ORDER BY id ASC")
+
+        # Fetch all the rows from the executed query
+        states = cur.fetchall()
+
+        # Print each state
+        for state in states:
+            print(state)
+
+        # Close the cursor and the database connection
+        cur.close()
+        db.close()
+    except MySQLdb.OperationalError as e:
+        print(f"Error connecting to the database: {e}")
+    except MySQLdb.DatabaseError as e:
+        print(f"Database error: {e}")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
