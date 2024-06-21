@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """
 This script takes in an argument and displays all values in the states
-table of hbtn_0e_0_usa where name matches the argument.
+table of hbtn_0e_0_usa where name matches the argument, using format to
+create the SQL query with user input.
 """
 
 import MySQLdb
@@ -27,9 +28,11 @@ if __name__ == "__main__":
     # Create a cursor object to interact with the database
     cur = db.cursor()
 
-    # Execute the SQL query to select states where name matches the argument
-    query = "SELECT * FROM states WHERE name = %s ORDER BY id ASC"
-    cur.execute(query, (state_name,))
+    # Construct the SQL query using format with user input
+    query = "SELECT * FROM states WHERE name = '{}' ORDER BY id ASC".format(state_name)
+
+    # Execute the SQL query
+    cur.execute(query)
 
     # Fetch all the rows from the executed query
     states = cur.fetchall()
