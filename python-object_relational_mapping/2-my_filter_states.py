@@ -29,7 +29,10 @@ if __name__ == "__main__":
     cur = db.cursor()
 
     # Construct the SQL query using format with user input
-    query = "SELECT * FROM states WHERE name = '{}' ORDER BY id ASC".format(state_name)
+    query = (
+        "SELECT * FROM states WHERE name = '{}' ORDER BY id ASC"
+        .format(state_name)
+    )
 
     # Execute the SQL query
     cur.execute(query)
