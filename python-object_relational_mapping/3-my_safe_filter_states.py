@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """
 This script takes in an argument and displays all values in the states
-table of hbtn_0e_0_usa where name matches the argument, safe from SQL
-injections.
+table of hbtn_0e_0_usa where name matches the argument, safe from SQL injections.
 """
 
 import MySQLdb
@@ -30,9 +29,9 @@ if __name__ == "__main__":
 
     # Construct the SQL query using parameterized input
     query = (
-        "SELECT * FROM states WHERE BINARY name = '{}' ORDER BY id ASC"
-        .format(state_name)
+        "SELECT * FROM states WHERE BINARY name = %s ORDER BY id ASC"
     )
+
     # Execute the SQL query with parameterized input
     cur.execute(query, (state_name,))
 
